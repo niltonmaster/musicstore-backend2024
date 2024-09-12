@@ -13,8 +13,6 @@ namespace MusicStore.Repositories
             genresList.Add(new Genre { Id = 2, Name = "Cumbia" });
             genresList.Add(new Genre { Id = 3, Name = "Bachata" });
 
-
-
         }
 
         //metodos...
