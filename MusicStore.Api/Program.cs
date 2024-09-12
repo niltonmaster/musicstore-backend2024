@@ -24,12 +24,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 //Registering services: lifetime services:
-    builder.Services.AddSingleton<GenreRepository>();//singleton: objetos en memoria. Utiliza la misma intancia siempre por eso no se pierde la data.
-    //builder.Services.AddScoped<GenreRepository>();//scoped: objetos en memoria. Utiliza la misma intancia siempre
-    //builder.Services.AddTransient<GenreRepository>();//transaient: siempre crea una nueva instancia
+    //builder.Services.AddSingleton<GenreRepository>();//singleton: objetos en memoria. Utiliza la misma intancia siempre por eso no se pierde la data.
+                                                     //builder.Services.AddScoped<GenreRepository>();//scoped: objetos en memoria. Utiliza la misma intancia siempre
+builder.Services.AddTransient<IGenreRepository,GenreRepository>();//transaient: siempre crea una nueva instancia
 
-    //AddScoped por sesion o request
-    //AddTransient
+//AddScoped por sesion o request
+//AddTransient
 
 
 

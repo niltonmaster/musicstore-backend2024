@@ -9,49 +9,54 @@ namespace MusicStore.Api.Controllers
     [Route("api/genres")]
     public class GenresController: ControllerBase
     {
-        private readonly GenreRepository genreRepository;
+        private readonly IGenreRepository genreRepository;
 
         //GenreRepository repository = new GenreRepository();//fuertemente y cambiamos por CDI
 
         //Ctor inicial sin interfaces:
-        public GenresController(GenreRepository genreRepository)
+        public GenresController(IGenreRepository genreRepository)
         {
             this.genreRepository = genreRepository;
         }
 
         //api/genres
         [HttpGet]
-        public ActionResult<List<Genre>> Get(int id) {
-            var data = genreRepository.Get();
+        public async Task<IActionResult> Get() {
+            //var data = genreRepository.Get();
+            var data = await genreRepository.GetAsync();
             return Ok(data);
         }
 
         //api/genres/1
         [HttpGet("${id:int}")]
-        public ActionResult<Genre> GetById(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var item= genreRepository.Get(id);
+            //var item= genreRepository.Get(id);
+            var item = await genreRepository.GetAsync(id);
             return item is not null? Ok(item) : NotFound();
         }
 
         [HttpPost]
-        public ActionResult Post( Genre item)
+        public async Task<IActionResult> Post( Genre item)
         {
-            genreRepository.Add(item);
+            //genreRepository.Add(item);
+
+            await genreRepository.AddAsync(item);
             return Ok(item);
 
         }
 
         [HttpPut("${id:int}")]
-        public ActionResult Put(int id, Genre genre) {
-            genreRepository.Update(id, genre);
+        public async Task<IActionResult> Put(int id, Genre genre) {
+            await genreRepository.UpdateAsync(id, genre);
             return Ok();
         }
 
         [HttpDelete("${id:int}")]
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            genreRepository.Delete(id);
+            //genreRepository.Delete(id);
+            await genreRepository.DeleteAsync(id);
             return Ok();
         }
 
